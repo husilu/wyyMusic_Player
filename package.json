@@ -1,0 +1,50 @@
+{
+  "name": "ts-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.144",
+    "core-js": "^2.6.5",
+    "file-loader": "^4.2.0",
+    "http-proxy-middleware": "^0.20.0",
+    "lib-flexible": "^0.3.2",
+    "moment": "^2.24.0",
+    "postcss-px2rem": "^0.3.0",
+    "ts-import-plugin": "^1.6.1",
+    "url-loader": "^2.2.0",
+    "vant": "^2.2.7",
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^0.11.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-typescript": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "axios": "^0.19.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.12.2",
+    "css-loader": "^3.2.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "lodash": "^4.17.15",
+    "postcss-import": "^12.0.1",
+    "typescript": "^3.4.3",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

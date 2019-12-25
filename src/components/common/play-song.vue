@@ -130,7 +130,10 @@ export default class Song extends Vue {
     Bus.$emit("playsong");
   }
   toPl() {
-    this.$router.push({ path: "/comment", query: { id: this.$route.query.id } });
+    this.$router.push({
+      path: "/comment",
+      query: { id: this.$route.query.id, type: "dq" }
+    });
   }
   showListHandler() {}
   @Watch("$route")
@@ -172,7 +175,8 @@ export default class Song extends Vue {
     .iconfont {
       font-size: 1.5rem;
     }
-    .icon-bofang, .icon-zanting {
+    .icon-bofang,
+    .icon-zanting {
       font-size: 3rem;
     }
   }

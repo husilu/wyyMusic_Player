@@ -11,7 +11,8 @@ import {
   Swipe,
   SwipeItem,
   Lazyload,
-  Popup
+  Popup,
+  Loading
 } from 'vant';
 
 Vue.config.productionTip = false
@@ -23,6 +24,7 @@ Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
 Vue.use(Popup);
+Vue.use(Loading);
 
 declare var window: any;
 window._vueInstance = new Vue({

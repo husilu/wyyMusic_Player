@@ -21,7 +21,7 @@
         <span class='iconfont icon-rili'></span>
         <p>每日推荐</p>
       </div>
-      <div class='menu-item'>
+      <div class='menu-item' @click='togedanSquare'>
         <span class='iconfont icon-faxian'></span>
         <p>歌单</p>
       </div>
@@ -57,6 +57,9 @@ export default class DiscoverBanner extends Vue {
     });
   }
   toUrl() {}
+  togedanSquare() {
+    this.$router.push({ path: "/gdsquare" });
+  }
 }
 </script>
 

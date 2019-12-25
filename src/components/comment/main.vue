@@ -42,7 +42,7 @@ import moment from "moment";
 @Component({
   filters: {
     filterTime(value: any) {
-      return moment(value).format('YYYY-MM-DD');
+      return moment(value).format("YYYY-MM-DD");
     }
   }
 })
@@ -54,11 +54,25 @@ export default class Comment extends Vue {
   }
   async searchComment() {
     let id = this.$route.query.id;
-    let res = await api.MusicComment(id as string, 20);
-    console.log(res);
-    if (res.code === 200) {
-      this.total = res.total;
-      this.hotList = res.hotComments;
+    let type = this.$route.query.type;
+    if (type === "dq") {
+      let res = await api.MusicComment(id as string, 20);
+      if (res.code === 200) {
+        this.total = res.total;
+        this.hotList = res.hotComments;
+      }
+    } else if (type === "gd") {
+      let res = await api.PlaylistComment(id as string, 20);
+      if (res.code === 200) {
+        this.total = res.total;
+        this.hotList = res.hotComments;
+      }
+    } else if (type === "zj") {
+      let res = await api.AlbumComment(id as string, 20);
+      if (res.code === 200) {
+        this.total = res.total;
+        this.hotList = res.hotComments;
+      }
     }
   }
   backHandler() {
@@ -103,7 +117,7 @@ export default class Comment extends Vue {
         }
         .time {
           color: #b2b2b2;
-          font-size: .8rem;
+          font-size: 0.8rem;
         }
         .zan {
           color: #a4a4a4;

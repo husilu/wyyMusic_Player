@@ -2,7 +2,7 @@
   <div class="discover-page-recommend px1 pt1">
     <div class="flex flex-between mb1">
       <span>推荐歌单</span>
-      <span class="gdgc">歌单广场</span>
+      <span class="gdgc" @click='togedanSquare'>歌单广场</span>
     </div>
     <div class="flex music-card-list">
       <div
@@ -35,6 +35,9 @@ export default class DiscoverBanner extends Vue {
   toUrl() {}
   toSongList(sid: any) {
     this.$router.push({ path: "/song-list", query: { id: sid } });
+  }
+  togedanSquare() {
+    this.$router.push({ path: "/gdsquare" });
   }
 }
 </script>

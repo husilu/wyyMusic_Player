@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="tool-box flex">
-        <div>
+        <div @click="toComment">
           <span class="iconfont icon-pinglun"></span>
           <p class="descount">{{commentCount}}</p>
         </div>
@@ -108,6 +108,12 @@ export default class SongList extends Vue {
   }
   async backHandler() {
     this.$router.go(-1);
+  }
+  toComment() {
+    this.$router.push({
+      path: "/comment",
+      query: { id: this.$route.query.id, type: "gd" }
+    });
   }
   moreHandler() {}
 }

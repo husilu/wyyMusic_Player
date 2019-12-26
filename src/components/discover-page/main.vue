@@ -1,7 +1,9 @@
 <template>
   <div class="dashboard">
     <Top-nav @toSearch="toSearch" @toDiscover="toDiscover" @totoSearch="totoSearch" :page="page" @toSearchPage='toSearchPage'></Top-nav>
-    <router-view></router-view>
+    <div class='mtcontainer'>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -39,7 +41,7 @@ export default class Dashboard extends Vue {
     this.page = "toSearch";
     this.searchVal = val;
   }
-  toSearchList(keyword:string) {
+  toSearchList(keyword: string) {
     this.page = "SearchList";
     this.keyword = keyword;
   }
@@ -48,5 +50,8 @@ export default class Dashboard extends Vue {
 
 <style lang="less">
 .dashboard {
+  .mtcontainer {
+   margin-top: 8vh;
+  }
 }
 </style>

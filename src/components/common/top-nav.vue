@@ -1,9 +1,9 @@
 <template>
-  <div class="top-nav px1">
-    <div class="flex align-center flex-between">
+  <div class="top-nav px1 py1">
+    <div class="flex align-center">
       <span class="iconfont icon-fanhui" @click='backHandler' v-if='page=="search-list"'></span>
       <span class="iconfont icon-shouqi1" v-if='page=="discover-index"'></span>
-      <div class="search-wrap">
+      <div class="search-wrap flex-auto">
         <van-field
           v-model="value"
           left-icon="search"
@@ -12,8 +12,11 @@
           @input='totoSearch'
         />
       </div>
-      <span @click="toDiscover" v-if='page!=="discover-index" && page!=="search-list"'>取消</span>
-      <span class="iconfont icon-paixing" @click='playSongHandler'></span>
+      <div :class='page!=="discover-index" && page!=="search-list" ? "long" : "short"'>
+        <span @click="toDiscover" v-if='page!=="discover-index" && page!=="search-list"' class='cancel-btn'>取消</span>
+        <span class="iconfont icon-paixing" @click='playSongHandler'></span>
+      </div>
+      <!-- <span>？？</span> -->
     </div>
   </div>
 </template>
@@ -81,11 +84,20 @@ export default class TopNav extends Vue {
 
 <style lang="less">
 .top-nav {
-  margin-top: 5px;
-  margin-bottom: 10px;
+  padding-bottom: 1vh;
+  padding-top: 1vh;
+  position: fixed;
+  top:0;
+  width: 100vw;
+  z-index:999;
+  background-color: #fff;
+  .icon-shouqi1 {
+    margin-right: 2vw;
+    text-align: center;
+  }
   .search-wrap {
-    width: 80%;
     border-radius: 20px;
+    margin-right: 2vw;
     background-color: #f7f7f7;
     height: 40px;
     .van-cell {
@@ -94,6 +106,15 @@ export default class TopNav extends Vue {
   }
   .user-center {
     width: 50vw;
+  }
+  .long {
+    width: 24vw;
+  }
+  .short {
+    width: 14vw;
+  }
+  .cancel-btn {
+    font-size: 1rem;
   }
 }
 </style>

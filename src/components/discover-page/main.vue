@@ -2,7 +2,6 @@
   <div class="dashboard">
     <Top-nav @toSearch="toSearch" @toDiscover="toDiscover" @totoSearch="totoSearch" :page="page" @toSearchPage='toSearchPage'></Top-nav>
     <router-view></router-view>
-    <!-- 包括发现页面和搜索页面 -->
   </div>
 </template>
 

@@ -29,7 +29,6 @@ export default class Xdxg extends Vue {
     let res = await api.newestAlbum();
     if (res.code === 200) {
       this.list = res.albums.slice(0, 3);
-      console.log(res);
     }
   }
   getZJ(id: string) {

@@ -1,15 +1,17 @@
 <template>
-  <div class="account">账户</div>
+  <div class="yzm">
+    验证码
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Route } from "vue-router";
 Component.registerHooks(["beforeRouteEnter", "beforeRouteLeave"]);
 @Component
-export default class Account extends Vue {
+export default class Wd extends Vue {
   beforeRouteEnter(to: Route, from: Route, next: Function) {
     next(vm => {
-      if (!localStorage.getItem("userName")) {
+      if (!localStorage.getItem("user")) {
         vm.$router.replace({ path: "/login" });
       }
     });

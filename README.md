@@ -1,5 +1,5 @@
 # wyyMusic_Player
-node(照搬别人的代码)+Vue-cli3+Ts(简单的Ts，主要是Ts练手)的一个简易的仿网易云音乐网页App。
+node(照搬别人的代码)+Vue-cli3+Ts(简单的Ts，主要是Ts练手)+vant(UI框架)的一个简易的仿网易云音乐网页App。
 
 服务器端如何启动详见NeteaseCloudMusicApi-master里面的readMe说明。
 
@@ -39,6 +39,10 @@ const instance = axios.create({
 
 1：nav哪个高亮判断根据路由来判断，现在是根据的tab值来判断的
 
-2:歌单广场用户自定义显示类型
+2: 歌单广场用户自定义显示类型
 
 3：歌单广场上拉刷新（未实现）
+
+4： 登录的actions里面ajxa报错，导致无法在action里面访问登录api，提到外面访问接口（在组件里面访问，不在actions里面访问）还是会报错 
+
+5： mounted为什么会在beforeRouteEnter之前执行？

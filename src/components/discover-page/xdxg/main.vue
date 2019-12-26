@@ -53,7 +53,7 @@ export default class Xdxg extends Vue {
   .music-card-list {
     flex-wrap: wrap;
     .music-card {
-      width: 28.333%;
+      width: 27.2vw;
       img {
         border-radius: 5px;
       }
@@ -61,7 +61,7 @@ export default class Xdxg extends Vue {
     }
     .music-name {
       margin-top: 0.2rem;
-      font-size: 0.23rem;
+      font-size: 0.8rem;
       color: #333;
     }
     .music-card:nth-child(3n) {

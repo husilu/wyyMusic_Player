@@ -59,6 +59,7 @@ export default class App extends Vue {
   .container.hasMenu {
     height: 90vh;
     overflow-y: auto;
+    margin-bottom: 10vh;
   }
 }
 </style>

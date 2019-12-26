@@ -73,6 +73,7 @@ export default class Gedanguangchang extends Vue {
     width: 100%;
     padding-top: 2vw;
     padding-bottom: 2vw;
+    overflow-x:auto;
     .back {
       width: 13vw;
       .iconfont {
@@ -99,7 +100,7 @@ export default class Gedanguangchang extends Vue {
       }
       .music-name {
         margin-top: 0.2rem;
-        font-size: 0.23rem;
+        font-size: 0.8rem;
         color: #333;
       }
       .music-card:nth-child(3n) {
@@ -111,10 +112,12 @@ export default class Gedanguangchang extends Vue {
     position: fixed;
     background-color: #fff;
     width: 100%;
+    overflow-x:auto;
     top: 11vw;
     div {
       padding-top: 2vw;
       padding-bottom: 2vw;
+      white-space:nowrap;
     }
     div.active {
       color: #f73527;

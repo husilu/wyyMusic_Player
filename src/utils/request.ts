@@ -56,8 +56,23 @@ instance.interceptors.response.use((response: any) => {
       $Message.warning(message);
     }
   }
-
   return response.data;
+}, (error: any) => {
+  if (error.response) {
+    switch (error.response.status) {
+      // http status handler
+      case 404:
+        console.log('请求的资源不存在！')
+        break
+      case 500:
+        console.log('内部错误，请稍后重试！')
+        break
+      case 503:
+        console.log('服务器正在维护，请稍等！')
+        break
+    }
+  }
+  return Promise.reject(error.response)
 });
 
 export default instance;

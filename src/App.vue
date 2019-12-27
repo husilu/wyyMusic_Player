@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <audio :src="url" ref="video" />
+    <audio :src="url" ref="video" @ended="end"/>
   </div>
 </template>
 <script lang="ts">
@@ -28,6 +28,10 @@ export default class App extends Vue {
   }
   get urlList() {
     return SongModule.urlList;
+  }
+  end() {
+    console.log(this.url)
+    SongModule.nextUrl(this.url);
   }
   mounted() {
     Bus.$on("playsong", () => {

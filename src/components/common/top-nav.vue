@@ -10,13 +10,13 @@
           @focus="toSearch"
           :placeholder="searchDefault"
           @input='totoSearch'
+          clearable
         />
       </div>
       <div :class='page!=="discover-index" && page!=="search-list" ? "long" : "short"'>
         <span @click="toDiscover" v-if='page!=="discover-index" && page!=="search-list"' class='cancel-btn'>取消</span>
         <span class="iconfont icon-paixing" @click='playSongHandler'></span>
       </div>
-      <!-- <span>？？</span> -->
     </div>
   </div>
 </template>
@@ -115,6 +115,7 @@ export default class TopNav extends Vue {
   }
   .cancel-btn {
     font-size: 1rem;
+    margin-right: 2vw;
   }
 }
 </style>

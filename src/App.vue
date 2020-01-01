@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <audio :src="url" ref="video" @ended="end"/>
+    <audio :src="url" ref="video" @ended="end" @timeupdate="updateTime" @loadedmetadata="loadedmetadata"/>
   </div>
 </template>
 <script lang="ts">
@@ -22,16 +22,24 @@ import { Component, Vue, Watch } from "vue-property-decorator";
   }
 })
 export default class App extends Vue {
-  private routeName = '';
+  private routeName = "";
   get url() {
     return SongModule.url;
   }
   get urlList() {
     return SongModule.urlList;
   }
+  get id() {
+    return SongModule.id;
+  }
   end() {
-    console.log(this.url)
-    SongModule.nextUrl(this.url);
+    SongModule.nextUrl(this.id);
+  }
+  updateTime(e) {
+    SongModule.getCurrentTime(e.target.currentTime)
+  }
+  loadedmetadata(e) {
+    SongModule.getEndtime(e.target.duration);
   }
   mounted() {
     Bus.$on("playsong", () => {
@@ -53,9 +61,6 @@ export default class App extends Vue {
 #app {
   width: 100vw;
   overflow-x: hidden;
-  video {
-    display: none;
-  }
   .container {
     width: 100vw;
     overflow: hidden;

@@ -9,20 +9,22 @@ import { Bus } from "@/utils/bus";
 export interface ISongState {
   id: string,
   url: string,
-  urlList: string[],
+  idList: string[],
   info: {
     name: string,
     al: {
       picUrl: string
     }
   },
-  playstate: Boolean
+  playstate: Boolean,
+  currentTime: string,
+  EndTime: string
 }
 
 @Module({ dynamic: true, store, name: 'song' })
 class ISongstate extends VuexModule implements ISongState {
   public url: string = '';
-  public urlList: string[] = [];
+  public idList: string[] = [];
   public id: string = '';
   public info = {
     name: '',
@@ -35,6 +37,8 @@ class ISongstate extends VuexModule implements ISongState {
   }
   public singername: string = ''
   public playstate: Boolean = false
+  public currentTime: string = ''
+  public EndTime:string = ''
   @Mutation
   getUrl(url: string) {
     this.url = url;
@@ -45,8 +49,18 @@ class ISongstate extends VuexModule implements ISongState {
   }
 
   @Mutation
+  getCurrentTime(time:string) {
+    this.currentTime = time;
+  }
+
+  @Mutation
+  getEndtime(time:string) {
+    this.EndTime = time;
+  }
+
+  @Mutation
   preUrl(id: string) {
-    let idList = _.map(this.urlList, (item: any) => {
+    let idList = _.map(this.idList, (item: any) => {
       return item.id;
     });
     let index = _.indexOf(idList, id);
@@ -55,7 +69,7 @@ class ISongstate extends VuexModule implements ISongState {
   }
   @Mutation
   nextUrl(id: string) {
-    let idList = _.map(this.urlList, (item: any) => {
+    let idList = _.map(this.idList, (item: any) => {
       return item.id;
     });
     let index = _.indexOf(idList, id);
@@ -65,7 +79,7 @@ class ISongstate extends VuexModule implements ISongState {
 
   @Mutation
   getSongList(list: any[]) {
-    this.urlList = list;
+    this.idList = list;
   }
 
   @Mutation

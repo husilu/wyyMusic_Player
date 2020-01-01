@@ -126,7 +126,11 @@ export default class SongList extends Vue {
     border-radius: 50%;
     margin-right: 1vw;
   }
+  .icon-bofang {
+    margin-right: 2vw;
+  }
   .song-list-banner {
+    margin-top: 6vh;
     padding: 4vw;
   }
   .cover {
@@ -206,8 +210,12 @@ export default class SongList extends Vue {
     }
   }
   .nav {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
     padding-top: 2vw;
     padding-bottom: 2vw;
+    top: 0;
     .back {
       width: 13vw;
       .iconfont{

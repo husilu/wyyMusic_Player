@@ -44,7 +44,11 @@
             <span class="iconfont icon-gengduo"></span>
           </div>
         </div>
-        <div class="progress-wrap"></div>
+        <div class="progress-wrap flex align-center">
+          <span>{{format(currentTime)}}</span>
+          <div class='progress-bar flex' ref='progressBar'><span class='bar' ref='bar'></span><span class='progress-code' ref='progressCode' @touchstart.prevent='progressTouchStart' @touchmove.prevent='progressTouchMove' @touchend.prevent='progressTouchEnd'></span></div>
+          <span>{{format(EndTime)}}</span>
+        </div>
         <div class="tool flex align-center">
           <div class="flex-auto">模式</div>
           <div class="flex-auto" @click="preHandler">
@@ -93,6 +97,12 @@ export default class Song extends Vue {
   get sid() {
     return SongModule.id;
   }
+  get currentTime() {
+    return SongModule.currentTime;
+  }
+  get EndTime() {
+    return SongModule.EndTime;
+  }
   mounted() {
     this.id = this.$route.query.id as string;
     if (this.id !== this.sid) {
@@ -135,11 +145,44 @@ export default class Song extends Vue {
       query: { id: this.$route.query.id, type: "dq" }
     });
   }
+  progressTouchStart(e) {
+    
+  }
+  progressTouchMove(e) {
+
+  }
+  progressTouchEnd(e) {
+
+  }
   showListHandler() {}
   @Watch("$route")
   async onRouteChange(route: Route) {
     this.id = this.$route.query.id as string;
     this.searchUrl();
+  }
+
+  @Watch("currentTime")
+  async oncurrentTimeChange(val) {
+    const codeWidth = 16;
+    const barwrapWidth = this.$refs.progressBar.clientWidth - codeWidth;
+    const offsetWidth = this.currentTime / this.EndTime  * barwrapWidth;
+    this.$refs.bar.style.width = `${offsetWidth}px`;
+    this.$refs.progressCode.style.left = `${offsetWidth}px`;
+  }
+  format(interval) {
+    // console.log(interval)
+    interval = interval | 0; // 向下取整 相当于 Math.floor
+    const minute = interval / 60 | 0;
+    const second = this._pad(interval % 60)
+    return `${minute}:${second}`;
+  }
+  _pad(num, n = 2) {
+    let len = num.toString().length;
+    while(len<n) {
+      num = '0' + num;
+      len ++ ;
+    }
+    return num
   }
 }
 </script>
@@ -236,6 +279,26 @@ export default class Song extends Vue {
     .iconfont {
       font-size: 1.5rem;
     }
+  }
+  .progress-bar {
+    width: 80vw;
+    height: 2px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: relative;
+  }
+  .bar {
+    height: 2px;
+    background-color: #000;
+  }
+  .progress-code {
+    width: 16px;
+    height: 16px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: -7px;
   }
 }
 .play-song {

@@ -2,7 +2,8 @@ import ajax from '@/utils/request.ts';
 
 const urls = {
   song: "/song/url?id=",
-  songdetail: '/song/detail?ids='
+  songdetail: '/song/detail?ids=',
+  lyric: '/lyric?id='
 }
 
 export default {
@@ -11,5 +12,8 @@ export default {
   },
   songdetail(id:string) {
     return ajax.get(`${urls.songdetail}${id}`);
+  },
+  lyric(id:string) {
+    return ajax.get(`${urls.lyric}${id}`);
   }
 }

@@ -17,8 +17,8 @@ export interface ISongState {
     }
   },
   playstate: Boolean,
-  currentTime: string,
-  EndTime: string
+  currentTime: number,
+  EndTime: number,
 }
 
 @Module({ dynamic: true, store, name: 'song' })
@@ -37,8 +37,10 @@ class ISongstate extends VuexModule implements ISongState {
   }
   public singername: string = ''
   public playstate: Boolean = false
-  public currentTime: string = ''
-  public EndTime:string = ''
+  public currentTime: number = 0
+  public EndTime:number = 0
+  public songPercent:number = 0
+  public lyricObj = {}
   @Mutation
   getUrl(url: string) {
     this.url = url;
@@ -49,13 +51,20 @@ class ISongstate extends VuexModule implements ISongState {
   }
 
   @Mutation
-  getCurrentTime(time:string) {
+  getCurrentTime(time:number) {
+    // console.log(time)
     this.currentTime = time;
+    this.songPercent = this.currentTime / this.EndTime;
   }
 
   @Mutation
-  getEndtime(time:string) {
+  getEndtime(time:number) {
     this.EndTime = time;
+  }
+
+  @Mutation
+  getlyricObj(obj:any) {
+    this.lyricObj = obj;
   }
 
   @Mutation

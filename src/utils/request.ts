@@ -3,8 +3,8 @@ import axios from 'axios';
 declare var window: any;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 const instance = axios.create({
-  // baseURL: 'http://192.168.30.126:4000'
-  baseURL: 'http://192.168.1.2:4000'
+  baseURL: 'http://192.168.30.126:4000'
+  // baseURL: 'http://192.168.1.2:4000'
   // baseURL: 'http://192.168.101.102:4000'
 });
 

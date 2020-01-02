@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <audio :src="url" ref="video" @ended="end" @timeupdate="updateTime" @loadedmetadata="loadedmetadata"/>
+    <audio
+      :src="url"
+      ref="video"
+      @ended="end"
+      @timeupdate="updateTime"
+      @loadedmetadata="loadedmetadata"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -32,11 +38,20 @@ export default class App extends Vue {
   get id() {
     return SongModule.id;
   }
+  get EndTime() {
+    return SongModule.EndTime;
+  }
+  get playstate() {
+    return SongModule.playstate;
+  }
+  get lyricObj()  {
+    return SongModule.lyricObj;
+  }
   end() {
     SongModule.nextUrl(this.id);
   }
   updateTime(e) {
-    SongModule.getCurrentTime(e.target.currentTime)
+    SongModule.getCurrentTime(e.target.currentTime);
   }
   loadedmetadata(e) {
     SongModule.getEndtime(e.target.duration);
@@ -45,6 +60,7 @@ export default class App extends Vue {
     Bus.$on("playsong", () => {
       this.$nextTick(() => {
         if (this.$refs.video) {
+          this.lyricObj && this.lyricObj.stop()
           (this.$refs.video as any).play();
           SongModule.CHANGE_BF_STATE(true);
         }
@@ -53,6 +69,13 @@ export default class App extends Vue {
     Bus.$on("stopsong", () => {
       this.$refs.video && (this.$refs.video as any).pause();
       SongModule.CHANGE_BF_STATE(false);
+    });
+    Bus.$on("barChange", percent => {
+      this.$refs.video.currentTime = this.EndTime * percent;
+      if (!this.playstate) {
+        (this.$refs.video as any).play();
+        SongModule.CHANGE_BF_STATE(true);
+      }
     });
   }
 }

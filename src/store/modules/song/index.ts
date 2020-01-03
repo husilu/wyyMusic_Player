@@ -40,7 +40,7 @@ class ISongstate extends VuexModule implements ISongState {
   public currentTime: number = 0
   public EndTime:number = 0
   public songPercent:number = 0
-  public lyricObj = {}
+  public lyricIndex:number = 0;
   @Mutation
   getUrl(url: string) {
     this.url = url;
@@ -63,8 +63,8 @@ class ISongstate extends VuexModule implements ISongState {
   }
 
   @Mutation
-  getlyricObj(obj:any) {
-    this.lyricObj = obj;
+  getlyricIndex(index:any) {
+    this.lyricIndex = index;
   }
 
   @Mutation

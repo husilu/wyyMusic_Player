@@ -60,7 +60,6 @@ export default class App extends Vue {
     Bus.$on("playsong", () => {
       this.$nextTick(() => {
         if (this.$refs.video) {
-          this.lyricObj && this.lyricObj.stop()
           (this.$refs.video as any).play();
           SongModule.CHANGE_BF_STATE(true);
         }

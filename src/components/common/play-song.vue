@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="big-box">
-        <div v-show="!showLyric" class="cd-box">
+        <div v-if="!showLyric" class="cd-box">
           <div class="relative wrap">
             <div class="arrow"></div>
             <div class="relative container">
@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div v-show="showLyric" @click="showLyric = false" class="lyric-wrap">
+        <div v-else @click="showLyric = false" class="lyric-wrap">
           <Lyric-page :id='id'></Lyric-page>
         </div>
       </div>

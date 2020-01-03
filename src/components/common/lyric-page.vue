@@ -2,10 +2,10 @@
   <div class="lyric-page">
     <div
       class="lyric-item"
-      v-for="(item, index) in LrcArray.lines"
+      v-for="(item, index) in lyric"
       :key="index"
-      :class="currentLineNum === index ?'active':''"
-    >{{item ? item.txt : ''}}</div>
+      :class="lyricIndex === index ?'active':''"
+    >{{item ? item.text : ''}}</div>
   </div>
 </template>
 <script lang="ts">
@@ -13,74 +13,73 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { Route } from "vue-router";
 import { SongModule } from "@/store/modules/song";
 import api from "store/song/api/index";
-import Lyric from "lyric-parser";
 Component.registerHooks(["beforeRouteEnter", "beforeRouteLeave"]);
-
+// 歌词解析
+const timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g;
+function parseLyric(lrc) {
+  const lines = lrc.split("\n");
+  const lyric = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const result = timeExp.exec(line);
+    if (!result) {
+      continue;
+    }
+    const text = line.replace(timeExp, "").trim();
+    if (text) {
+      lyric.push({
+        time: (result[1] * 6e4 + result[2] * 1e3 + (result[3] || 0) * 1) / 1e3,
+        text
+      });
+    }
+  }
+  return lyric;
+}
 @Component
 export default class LyricPage extends Vue {
-  private LrcArray = {};
-  private currentLineNum = 0;
+  private lyric = {};
+  private lyricIndex = 0;
   get currentTime() {
     return SongModule.currentTime;
   }
   get playstate() {
     return SongModule.playstate;
   }
+  get slyricIndex() {
+    return SongModule.lyricIndex;
+  }
   @Prop() private id!: string; // ! 表示确定msg有值
-  mounted() {}
-  @Watch("id")
-  async onIdChange(val, oldval) {
-    if (val === oldval) {
-      return;
-    }
+  mounted() {
+    this.searchLyric();
+  }
+  searchLyric() {
+    this.lyricIndex = this.slyricIndex ? this.slyricIndex: 0;
     api.lyric(this.id).then(res => {
-      this.LrcArray = new Lyric(res.lrc.lyric, this.handleLyric);
-      SongModule.getlyricObj(this.LrcArray);
+      this.lyric = parseLyric(res.lrc.lyric);
     });
   }
-  @Watch("playstate")
-  async onPlaystateChange(val) {
-    this.LrcArray && this.LrcArray.togglePlay();
+  @Watch("currentTime")
+  async onCurrentTime(newTime) {
+    let lyricIndex = 0;
+    for (let i = 0; i < this.lyric.length; i++) {
+      if (newTime > this.lyric[i].time) {
+        lyricIndex = i;
+      }
+    }
+    this.lyricIndex = lyricIndex;
+    SongModule.getlyricIndex(lyricIndex)
   }
 
-  /**
-   * 创建歌词数组
-   * 通过换行符分割字符串，形成数组，数组的每一项是一个对象，对象返回格式如下
-   * {time：， word：}
-   * @param {String} lrc 歌词字符串
-   */
-  createLrcArray(lrc) {
-    const parts = lrc.split("\n");
-    for (let index = 0; index < parts.length; index++) {
-      const element = parts[index];
-      parts[index] = this.changeToObject(element);
-    }
-    return parts;
-  }
-  /**
-   * 根据一行歌词 转换为对象
-   * @param {string} str 一行歌词
-   */
-  changeToObject(str) {
-    const words = str.split("]")[1];
-    // 这个正则返回时间信息
-    const reg = /\w{0,}:\w{0,}.\w{0,}/g;
-    let timeArray = reg.exec(str);
-    if (!timeArray) {
+  @Watch("$route")
+  async onRouteChange(newroute: Route, oldroute) {
+    if (newroute.query.id === oldroute.query.id) {
       return;
+    } else {
+      this.searchLyric();
     }
-    timeArray = timeArray[0].split(":");
-    const minute = parseInt(timeArray[0]); // 分钟数
-    const second = parseFloat(timeArray[1]); // 秒数
-    const time = minute * 60 + second;
-    return {
-      time,
-      words
-    };
   }
-  handleLyric({ lineNum, txt }) {
-    this.currentLineNum = lineNum;
-  }
+
+  // 如何在该页面验证，再次进入是同一首歌的话歌词显示要同步
 }
 </script>
 <style lang="less">

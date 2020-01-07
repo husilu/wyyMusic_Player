@@ -55,7 +55,7 @@ export default class Account extends Vue {
       }
     });
   }
-  mounted() {
+  created() {
     if (localStorage.getItem("userName")) {
       this.getUserDetial();
     }

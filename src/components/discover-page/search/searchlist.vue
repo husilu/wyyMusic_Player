@@ -27,7 +27,7 @@ import { SongModule } from "@/store/modules/song";
 export default class searchList extends Vue {
   private list: any = [];
   @Prop() private keyword!: string; // ! 表示确定msg有值
-  async mounted() {
+  async created() {
     let { keywords } = this.$route.query;
     let res = await api.searchkey(keywords as string);
     if (res.code === 200) {

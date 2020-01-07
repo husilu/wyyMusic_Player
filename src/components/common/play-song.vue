@@ -134,8 +134,6 @@ export default class Song extends Vue {
   }
   created() {
     this.touch = {};
-  }
-  mounted() {
     this.id = this.$route.query.id as string;
     // SongModule.getSongPercent(); // 获取歌曲进度到哪里了
     if (this.id !== this.sid) {

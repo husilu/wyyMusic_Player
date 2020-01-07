@@ -23,7 +23,7 @@ import { UserModule } from "@/store/modules/login";
 export default class PasswordLogin extends Vue {
   private tel: string = "";
   private pw = "";
-  mounted() {
+  created() {
     this.tel = this.$route.query.tel as string;
   }
   backHandler() {

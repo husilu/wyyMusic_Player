@@ -49,11 +49,11 @@ export default class LyricPage extends Vue {
     return SongModule.lyricIndex;
   }
   @Prop() private id!: string; // ! 表示确定msg有值
-  mounted() {
+  created() {
     this.searchLyric();
   }
   searchLyric() {
-    this.lyricIndex = this.slyricIndex ? this.slyricIndex: 0;
+    this.lyricIndex = this.slyricIndex ? this.slyricIndex : 0;
     api.lyric(this.id).then(res => {
       this.lyric = parseLyric(res.lrc.lyric);
     });

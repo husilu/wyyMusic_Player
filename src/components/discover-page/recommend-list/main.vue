@@ -24,7 +24,7 @@ import api from "store/discover-page/api/index";
 @Component({})
 export default class DiscoverBanner extends Vue {
   list = [];
-  mounted() {
+  created() {
     this.search();
   }
   search() {

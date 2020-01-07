@@ -49,7 +49,7 @@ import moment from "moment";
 export default class Comment extends Vue {
   private total: number = 0;
   private hotList = [];
-  mounted() {
+  created() {
     this.searchComment();
   }
   async searchComment() {

@@ -38,7 +38,7 @@ export default class Gedanguangchang extends Vue {
   private tab = '';
   private list = [];
   private loading = true;
-  async mounted() {
+  async created() {
     let res = await api.playlist();
     this.catList = res.sub.slice(0, 5);
     this.tab = this.catList[0].name;

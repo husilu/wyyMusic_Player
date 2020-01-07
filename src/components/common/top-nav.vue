@@ -68,7 +68,7 @@ export default class TopNav extends Vue {
   totoSearch() {
     SearchModule.getSearchValue(this.value);
   }
-  mounted() {
+  created() {
     this.getSearchDefault();
   }
   playSongHandler() {

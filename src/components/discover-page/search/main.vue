@@ -75,7 +75,7 @@ export default class Search extends Vue {
       }
     }
   }
-  mounted() {
+  created() {
     this.searchHot();
   }
   showSong(keywords:string) {

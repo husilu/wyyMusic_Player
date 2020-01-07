@@ -25,7 +25,7 @@ import api from "store/discover-page/api/index";
 @Component
 export default class Xdxg extends Vue {
   private list = [];
-  async mounted() {
+  async created() {
     let res = await api.newestAlbum();
     if (res.code === 200) {
       this.list = res.albums.slice(0, 3);

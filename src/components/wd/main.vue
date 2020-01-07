@@ -64,7 +64,7 @@ export default class Wd extends Vue {
       }
     });
   }
-  mounted() {
+  created() {
     if (localStorage.getItem("userName")) {
       this.getUserPlayList();
     }

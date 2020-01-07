@@ -86,7 +86,7 @@ export default class SongList extends Vue {
   private tracklist: any = {};
   private commentCount: number = 0;
   private shareCount: number = 0;
-  mounted() {
+  created() {
     this.id = this.$route.query.id as string; // 歌单id
     this.searchList(this.id as string);
   }

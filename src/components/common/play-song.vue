@@ -95,6 +95,7 @@ import { SongListModule } from "@/store/modules/song-list";
 import { Bus } from "@/utils/bus";
 import { Route } from "vue-router";
 import LyricPage from "./lyric-page";
+import api from "store/song/api/index";
 @Component({
   components: {
     LyricPage
@@ -150,6 +151,9 @@ export default class Song extends Vue {
     if (res) {
       Bus.$emit("playsong");
       this.defaultimg = false;
+    } else {
+      this.$toast('暂无版权 无法播放 >.<');
+      SongModule.getUrl('')
     }
   }
   back() {

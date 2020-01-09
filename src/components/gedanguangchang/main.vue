@@ -57,6 +57,9 @@ export default class Gedanguangchang extends Vue {
       this.loading = false;
     }
   }
+  toSongList(sid: any) {
+    this.$router.push({ path: "/song-list", query: { id: sid } });
+  }
   @Watch('tab')
   private changeTabHandler(val) {
     this.loading = true;

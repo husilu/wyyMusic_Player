@@ -4,7 +4,7 @@
       <div class="back text-center" @click="backHandler">
         <span class="iconfont icon-fanhui"></span>
       </div>
-      <div class="flex-auto text-center">歌单</div>
+      <div class="flex-auto text-center gedantitle">{{gedanTitle}}</div>
       <div class="more text-center" @click="moreHandler">
         <span class="iconfont icon-gengduo"></span>
       </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="song-list-container">
-      <div class="flex player-tool align-center flex-between">
+      <div class="flex player-tool align-center flex-between" ref="playertool">
         <div>
           <span class="iconfont icon-bofang"></span>播放全部
         </div>
@@ -86,9 +86,24 @@ export default class SongList extends Vue {
   private tracklist: any = {};
   private commentCount: number = 0;
   private shareCount: number = 0;
+  private gedanTitle: string = '歌单';
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll, true);
+  }
   created() {
     this.id = this.$route.query.id as string; // 歌单id
     this.searchList(this.id as string);
+  }
+  handleScroll() {
+    let dom = this.$refs.playertool;
+    let top = document.querySelector('.hasMenu').scrollTop;
+    if (top > 250) {
+      dom.className = "flex player-tool align-center flex-between fixed";
+      this.gedanTitle = this.playlist.name;
+    } else {
+      dom.className = "flex player-tool align-center flex-between";
+      this.gedanTitle = '歌单';
+    }
   }
   async searchList(id: string) {
     let res = (await api.songList(id)) as any;
@@ -116,10 +131,18 @@ export default class SongList extends Vue {
     });
   }
   moreHandler() {}
+  beforeDestroy () {
+    window.removeEventListener("scroll", this.handleScroll, true)
+  }
 }
 </script>
 <style lang="less">
 .song-list {
+  .gedantitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .avapic {
     width: 8vw;
     height: 8vw;
@@ -157,9 +180,6 @@ export default class SongList extends Vue {
     -webkit-box-orient: vertical;
   }
   .song-list-container {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border: 1px solid #000;
   }
   .order {
     width: 11vw;
@@ -182,6 +202,9 @@ export default class SongList extends Vue {
   .player-tool {
     font-size: 1rem;
     padding: 1vw 2vw;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top: 1px solid #000;
     .collect {
       background-color: #fe1f13;
       color: #fff;
@@ -191,6 +214,14 @@ export default class SongList extends Vue {
       height: 40px;
       line-height: 40px;
       font-size: 0.8rem;
+    }
+    &.fixed {
+      position: fixed;
+      top: 6vh;
+      width: 96%;
+      background-color: #fff;
+      overflow: hidden;
+      border: none;
     }
   }
   .tool-box {
@@ -217,14 +248,14 @@ export default class SongList extends Vue {
     padding-bottom: 2vw;
     top: 0;
     .back {
-      width: 13vw;
-      .iconfont{
+      min-width: 13vw;
+      .iconfont {
         font-size: 1.5rem;
       }
     }
     .more {
-      width: 13vw;
-      .iconfont{
+      min-width: 13vw;
+      .iconfont {
         font-size: 1.5rem;
       }
     }

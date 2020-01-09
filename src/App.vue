@@ -15,6 +15,7 @@ import { State, Action, Mutation, Getter } from "vuex-class";
 import { SongModule } from "@/store/modules/song";
 import { Bus } from "@/utils/bus";
 import { Component, Vue, Watch } from "vue-property-decorator";
+
 // import Home from "@/components/home/main.vue"; // @ is an alias to /src
 
 @Component({
@@ -44,7 +45,7 @@ export default class App extends Vue {
   get playstate() {
     return SongModule.playstate;
   }
-  get lyricObj()  {
+  get lyricObj() {
     return SongModule.lyricObj;
   }
   end() {

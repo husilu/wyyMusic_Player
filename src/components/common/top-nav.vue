@@ -9,7 +9,7 @@
           left-icon="search"
           @focus="toSearch"
           :placeholder="searchDefault"
-          @input='totoSearch'
+          @input='debounceInput'
           clearable
         />
       </div>
@@ -26,6 +26,7 @@ import api from "store/discover-page/api";
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { SongModule } from "@/store/modules/song";
 import { SearchModule } from "@/store/modules/search";
+import _ from 'lodash';
 
 @Component
 export default class TopNav extends Vue {
@@ -66,10 +67,14 @@ export default class TopNav extends Vue {
     });
   }
   totoSearch() {
-    SearchModule.getSearchValue(this.value);
+    SearchModule.getSearchValue(this.value)
   }
   created() {
     this.getSearchDefault();
+    this.debounceInput = _.debounce( this.totoSearch, 500)
+  }
+  debounceInput() {
+
   }
   playSongHandler() {
     this.$router.push({ path: "/song", query: { id: this.id } });

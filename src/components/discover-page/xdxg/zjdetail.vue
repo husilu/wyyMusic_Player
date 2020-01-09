@@ -4,7 +4,7 @@
       <div class="back text-center" @click="backHandler">
         <span class="iconfont icon-fanhui"></span>
       </div>
-      <div class="flex-auto text-center">专辑</div>
+      <div class="flex-auto text-center">{{gedanTitle}}</div>
       <div class="more text-center" @click="moreHandler">
         <span class="iconfont icon-gengduo"></span>
       </div>
@@ -17,7 +17,10 @@
         <div>
           <p class="title">{{playlist.name}}</p>
           <div class="flex creator align-center">
-            <p><span class='gs'>歌手:</span><span class='singer-name'>{{creator.name}}</span></p>
+            <p>
+              <span class="gs">歌手:</span>
+              <span class="singer-name">{{creator.name}}</span>
+            </p>
           </div>
           <div>
             <p class="description">{{playlist.description}}</p>
@@ -25,7 +28,7 @@
         </div>
       </div>
       <div class="tool-box flex">
-        <div @click='toComment'>
+        <div @click="toComment">
           <span class="iconfont icon-pinglun"></span>
           <p class="descount">{{commentCount}}</p>
         </div>
@@ -44,7 +47,7 @@
       </div>
     </div>
     <div class="song-list-container">
-      <div class="flex player-tool align-center flex-between">
+      <div class="flex player-tool align-center flex-between" ref="playertool">
         <div>
           <span class="iconfont icon-bofang"></span>播放全部
         </div>
@@ -85,10 +88,25 @@ export default class SongList extends Vue {
   private tracklist: any = [];
   private commentCount: number = 0;
   private shareCount: number = 0;
+  private gedanTitle: string = "歌单";
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll, true);
+  }
   created() {
     this.id = this.$route.query.id as string; // 专辑id
     this.searchList(this.id as string);
     this.searchDynamic(this.id as string);
+  }
+  handleScroll() {
+    let dom = this.$refs.playertool;
+    let top = document.querySelector(".hasMenu").scrollTop;
+    if (top > 250) {
+      dom.className = "flex player-tool align-center flex-between fixed";
+      this.gedanTitle = this.playlist.name;
+    } else {
+      dom.className = "flex player-tool align-center flex-between";
+      this.gedanTitle = "歌单";
+    }
   }
   async searchList(id: string) {
     let res = (await api.zjDetail(id)) as any;
@@ -123,6 +141,9 @@ export default class SongList extends Vue {
       query: { id: this.$route.query.id, type: "zj" }
     });
   }
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll, true);
+  }
 }
 </script>
 <style lang="less">
@@ -137,6 +158,7 @@ export default class SongList extends Vue {
     font-weight: bold;
   }
   .song-list-banner {
+    margin-top: 6vh;
     padding: 4vw;
   }
   .cover {
@@ -150,7 +172,7 @@ export default class SongList extends Vue {
     margin-bottom: 3vw;
   }
   .gs {
-    font-size: .8rem;
+    font-size: 0.8rem;
     margin-right: 1vw;
   }
   .creator {
@@ -167,9 +189,9 @@ export default class SongList extends Vue {
     -webkit-box-orient: vertical;
   }
   .song-list-container {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-top: 1px solid #000;
+    // border-top-left-radius: 20px;
+    // border-top-right-radius: 20px;
+    // border-top: 1px solid #000;
   }
   .order {
     width: 11vw;
@@ -192,6 +214,9 @@ export default class SongList extends Vue {
   .player-tool {
     font-size: 1rem;
     padding: 1vw 2vw;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top: 1px solid #000;
     .collect {
       background-color: #fe1f13;
       color: #fff;
@@ -202,6 +227,17 @@ export default class SongList extends Vue {
       line-height: 40px;
       font-size: 0.8rem;
     }
+    &.fixed {
+      position: fixed;
+      top: 6vh;
+      width: 96%;
+      background-color: #fff;
+      overflow: hidden;
+      border: none;
+    }
+  }
+  .icon-bofang {
+    margin-right: 2vw;
   }
   .tool-box {
     margin-top: 23px;
@@ -220,16 +256,20 @@ export default class SongList extends Vue {
     }
   }
   .nav {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
     padding-top: 2vw;
     padding-bottom: 2vw;
+    top: 0;
     .back {
-      width: 13vw;
+      min-width: 13vw;
       .iconfont {
         font-size: 1.5rem;
       }
     }
     .more {
-      width: 13vw;
+      min-width: 13vw;
       .iconfont {
         font-size: 1.5rem;
       }

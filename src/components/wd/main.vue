@@ -58,7 +58,7 @@ export default class Wd extends Vue {
   creatorList = [];
   collectList = [];
   beforeRouteEnter(to: Route, from: Route, next: Function) {
-    next(vm => {
+    next((vm: Vue) => {
       if (!localStorage.getItem("userName")) {
         vm.$router.replace({ path: "/login" });
       }
@@ -71,12 +71,12 @@ export default class Wd extends Vue {
   }
   async getUserPlayList() {
     let res = await api.userplayList(UserModule.userid);
-    this.creatorList = res.playlist.filter(item => {
+    this.creatorList = res.playlist.filter((item:any) => {
       if (item.creator.defaultAvatar) {
         return item;
       }
     });
-    this.collectList = res.playlist.filter(item => {
+    this.collectList = res.playlist.filter((item: any) => {
       if (!item.creator.defaultAvatar) {
         return item;
       }

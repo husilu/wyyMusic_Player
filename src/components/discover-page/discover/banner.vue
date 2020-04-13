@@ -16,7 +16,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div class='search-menu flex align-center flex-around'>
+    <!-- <div class='search-menu flex align-center flex-around'>
       <div class='menu-item'>
         <span class='iconfont icon-rili'></span>
         <p>每日推荐</p>
@@ -37,7 +37,7 @@
         <span class='iconfont icon-zhibo'></span>
         <p>直播</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

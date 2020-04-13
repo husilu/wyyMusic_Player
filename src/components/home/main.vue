@@ -27,7 +27,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Route } from "vue-router";
 @Component
 export default class Home extends Vue {
-  private routeName = '';
+  private routeName:string | undefined = '';
   private tab = 'fx';
   @Watch("$route")
   async onRouteChange(route: Route) {

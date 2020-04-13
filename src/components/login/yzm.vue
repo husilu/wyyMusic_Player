@@ -1,7 +1,5 @@
 <template>
-  <div class="yzm">
-    验证码
-  </div>
+  <div class="yzm">验证码</div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
@@ -10,7 +8,7 @@ Component.registerHooks(["beforeRouteEnter", "beforeRouteLeave"]);
 @Component
 export default class Yzm extends Vue {
   beforeRouteEnter(to: Route, from: Route, next: Function) {
-    next(vm => {
+    next((vm: Vue) => {
       if (!localStorage.getItem("user")) {
         vm.$router.replace({ path: "/login" });
       }

@@ -41,13 +41,13 @@ export default class Gedanguangchang extends Vue {
   async created() {
     let res = await api.playlist();
     this.catList = res.sub.slice(0, 5);
-    this.tab = this.catList[0].name;
+    this.tab = (this.catList[0] as any).name;
   }
   backHandler() {
     this.$router.go(-1);
   }
   moreHandler() {}
-  changeTab(item) {
+  changeTab(item : any) {
     this.tab = item.name;
   }
   async getPlayList(cat:string) {
@@ -61,7 +61,7 @@ export default class Gedanguangchang extends Vue {
     this.$router.push({ path: "/song-list", query: { id: sid } });
   }
   @Watch('tab')
-  private changeTabHandler(val) {
+  private changeTabHandler(val: any) {
     this.loading = true;
     this.getPlayList(val)
   }

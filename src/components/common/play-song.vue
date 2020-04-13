@@ -94,7 +94,7 @@ import { SongModule } from "@/store/modules/song";
 import { SongListModule } from "@/store/modules/song-list";
 import { Bus } from "@/utils/bus";
 import { Route } from "vue-router";
-import LyricPage from "./lyric-page";
+import LyricPage from "./lyric-page.vue";
 import api from "store/song/api/index";
 @Component({
   components: {
@@ -104,7 +104,7 @@ import api from "store/song/api/index";
 export default class Song extends Vue {
   private id: string = "";
   private defaultimg: boolean = true;
-  private touch;
+  private touch: any;
   private showLyric: boolean = false;
   get info() {
     return SongModule.info;
@@ -127,8 +127,8 @@ export default class Song extends Vue {
   get EndTime() {
     const codeWidth = 16;
     this.$nextTick(() => {
-      const barwrapWidth = this.$refs.progressBar.clientWidth - codeWidth;
-      const offsetWidth = (this.currentTime / this.EndTime) * barwrapWidth;
+      const barwrapWidth = (this.$refs.progressBar as HTMLImageElement).clientWidth - codeWidth;
+      const offsetWidth: any = (this.currentTime / this.EndTime) * barwrapWidth;
       this._offest(offsetWidth);
     });
     return SongModule.EndTime;
@@ -180,41 +180,41 @@ export default class Song extends Vue {
       query: { id: this.$route.query.id, type: "dq" }
     });
   }
-  progressTouchStart(e) {
+  progressTouchStart(e: any) {
     this.touch.initiated = true;
     this.touch.startX = e.touches[0].pageX;
-    this.touch.left = this.$refs.bar.clientWidth;
+    this.touch.left = (this.$refs.bar as HTMLImageElement).clientWidth;
   }
-  progressTouchMove(e) {
+  progressTouchMove(e: any) {
     if (!this.touch.initiated) {
       return;
     }
     const deltaX = e.touches[0].pageX - this.touch.startX;
     const offsetWidth = Math.min(
-      this.$refs.progressBar.clientWidth - 16,
+      (this.$refs.progressBar as HTMLImageElement).clientWidth - 16,
       Math.max(0, this.touch.left + deltaX)
     );
     this._offest(offsetWidth);
   }
-  progressTouchEnd(e) {
+  progressTouchEnd(e: any) {
     this.touch.initiated = false;
     this._triggerPersent();
   }
-  _offest(offsetWidth) {
+  _offest(offsetWidth : any) {
     // 设置偏移量
-    this.$refs.bar.style.width = `${offsetWidth}px`;
-    this.$refs.progressCode.style.left = `${offsetWidth}px`;
+    (this.$refs.bar as HTMLImageElement).style.width = `${offsetWidth}px`;
+    (this.$refs.progressCode as HTMLImageElement).style.left = `${offsetWidth}px`;
   }
   showListHandler() {}
-  progressClick(e) {
+  progressClick(e: any) {
     this._offest(e.offsetX);
     this._triggerPersent();
   }
   _triggerPersent() {
     // 设置歌曲播放进度
     const codeWidth = 16;
-    const barwrapWidth = this.$refs.progressBar.clientWidth - codeWidth;
-    const percent = this.$refs.bar.clientWidth / barwrapWidth;
+    const barwrapWidth = (this.$refs.progressBar as HTMLImageElement).clientWidth - codeWidth;
+    const percent = (this.$refs.bar as HTMLImageElement).clientWidth / barwrapWidth;
     Bus.$emit("barChange", percent);
   }
 
@@ -225,23 +225,23 @@ export default class Song extends Vue {
   }
 
   @Watch("currentTime")
-  async oncurrentTimeChange(val) {
+  async oncurrentTimeChange(val: any) {
     if (!this.touch.initiated) {
       const codeWidth = 16;
-      const barwrapWidth = this.$refs.progressBar.clientWidth - codeWidth;
+      const barwrapWidth = (this.$refs.progressBar as HTMLImageElement).clientWidth - codeWidth;
       const offsetWidth = (this.currentTime / this.EndTime) * barwrapWidth;
       this._offest(offsetWidth);
     }
   }
 
-  format(interval) {
+  format(interval :any) {
     // console.log(interval)
     interval = interval | 0; // 向下取整 相当于 Math.floor
     const minute = (interval / 60) | 0;
     const second = this._pad(interval % 60);
     return `${minute}:${second}`;
   }
-  _pad(num, n = 2) {
+  _pad(num : any, n = 2) {
     let len = num.toString().length;
     while (len < n) {
       num = "0" + num;

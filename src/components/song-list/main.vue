@@ -95,7 +95,7 @@ export default class SongList extends Vue {
     this.searchList(this.id as string);
   }
   handleScroll() {
-    let dom = this.$refs.playertool;
+    let dom: HTMLImageElement = this.$refs.playertool as HTMLImageElement;
     let top = document.querySelector('.hasMenu').scrollTop;
     if (top > 250) {
       dom.className = "flex player-tool align-center flex-between fixed";

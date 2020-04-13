@@ -19,6 +19,8 @@ export interface ISongState {
   playstate: Boolean,
   currentTime: number,
   EndTime: number,
+  urlList: any[],
+  lyricObj: any
 }
 
 @Module({ dynamic: true, store, name: 'song' })
@@ -41,6 +43,8 @@ class ISongstate extends VuexModule implements ISongState {
   public EndTime:number = 0
   public songPercent:number = 0
   public lyricIndex:number = 0;
+  public urlList: any[] = [];
+  public lyricObj: any = {};
   @Mutation
   getUrl(url: string) {
     this.url = url;

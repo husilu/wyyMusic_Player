@@ -16,7 +16,7 @@ import api from "store/song/api/index";
 Component.registerHooks(["beforeRouteEnter", "beforeRouteLeave"]);
 // 歌词解析
 const timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g;
-function parseLyric(lrc) {
+function parseLyric(lrc : string) {
   const lines = lrc.split("\n");
   const lyric = [];
   for (let i = 0; i < lines.length; i++) {
@@ -28,7 +28,7 @@ function parseLyric(lrc) {
     const text = line.replace(timeExp, "").trim();
     if (text) {
       lyric.push({
-        time: (result[1] * 6e4 + result[2] * 1e3 + (result[3] || 0) * 1) / 1e3,
+        time: ((result as any[1]) * 6e4 + (result as any[2]) * 1e3 + (result as any[3] || 0) * 1) / 1e3,
         text
       });
     }
@@ -37,7 +37,7 @@ function parseLyric(lrc) {
 }
 @Component
 export default class LyricPage extends Vue {
-  private lyric = {};
+  private lyric: any = {};
   private lyricIndex = 0;
   get currentTime() {
     return SongModule.currentTime;
@@ -59,7 +59,7 @@ export default class LyricPage extends Vue {
     });
   }
   @Watch("currentTime")
-  async onCurrentTime(newTime) {
+  async onCurrentTime(newTime: any) {
     let lyricIndex = 0;
     for (let i = 0; i < this.lyric.length; i++) {
       if (newTime > this.lyric[i].time) {
@@ -71,10 +71,8 @@ export default class LyricPage extends Vue {
   }
 
   @Watch("$route")
-  async onRouteChange(newroute: Route, oldroute) {
-    if (newroute.query.id === oldroute.query.id) {
-      return;
-    } else {
+  async onRouteChange(newroute: Route, oldroute: Route) {
+    if (newroute.query.id !== oldroute.query.id) {
       this.searchLyric();
     }
   }

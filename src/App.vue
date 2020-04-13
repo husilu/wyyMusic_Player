@@ -51,10 +51,10 @@ export default class App extends Vue {
   end() {
     SongModule.nextUrl(this.id);
   }
-  updateTime(e) {
+  updateTime(e: any) {
     SongModule.getCurrentTime(e.target.currentTime);
   }
-  loadedmetadata(e) {
+  loadedmetadata(e: any) {
     SongModule.getEndtime(e.target.duration);
   }
   mounted() {
@@ -70,8 +70,8 @@ export default class App extends Vue {
       this.$refs.video && (this.$refs.video as any).pause();
       SongModule.CHANGE_BF_STATE(false);
     });
-    Bus.$on("barChange", percent => {
-      this.$refs.video.currentTime = this.EndTime * percent;
+    Bus.$on("barChange", (percent:number) => {
+      (this.$refs.video as any).currentTime = this.EndTime * percent;
       if (!this.playstate) {
         (this.$refs.video as any).play();
         SongModule.CHANGE_BF_STATE(true);

@@ -49,7 +49,7 @@ Component.registerHooks(["beforeRouteEnter", "beforeRouteLeave"]);
 export default class Account extends Vue {
   private profile = {};
   beforeRouteEnter(to: Route, from: Route, next: Function) {
-    next(vm => {
+    next((vm: Vue) => {
       if (!localStorage.getItem("userName")) {
         vm.$router.replace({ path: "/login" });
       }

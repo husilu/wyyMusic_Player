@@ -28,10 +28,10 @@
             <p>{{profile.followeds}}</p>
             <p class="text">粉丝</p>
           </div>
-          <div class="flex-auto">
+          <!-- <div class="flex-auto">
             <p></p>
             <p class="text">编辑资料</p>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="logoff py1 text-center" @click='logout'>退出登录</div>

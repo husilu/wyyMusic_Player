@@ -16,11 +16,11 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <!-- <div class='search-menu flex align-center flex-around'>
-      <div class='menu-item'>
+    <div class='search-menu flex align-center flex-around'>
+      <!-- <div class='menu-item'>
         <span class='iconfont icon-rili'></span>
         <p>每日推荐</p>
-      </div>
+      </div> -->
       <div class='menu-item' @click='togedanSquare'>
         <span class='iconfont icon-faxian'></span>
         <p>歌单</p>
@@ -29,15 +29,15 @@
         <span class='iconfont icon-paixingbang'></span>
         <p>排行榜</p>
       </div>
-      <div class='menu-item'>
+      <!-- <div class='menu-item'>
         <span class='iconfont icon-xianxing_diantai'></span>
         <p>电台</p>
-      </div>
-      <div class='menu-item'>
+      </div> -->
+      <!-- <div class='menu-item'>
         <span class='iconfont icon-zhibo'></span>
         <p>直播</p>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </div>
 </template>
 

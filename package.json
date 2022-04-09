@@ -15,7 +15,7 @@
     "http-proxy-middleware": "^0.20.0",
     "lib-flexible": "^0.3.2",
     "lyric-parser": "^1.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "postcss-px2rem": "^0.3.0",
     "ts-import-plugin": "^1.6.1",
     "url-loader": "^2.2.0",
